@@ -1,8 +1,0 @@
-AWS_ACCESS_KEY = "access-key"
-AWS_SECRET_KEY = "secret-key"
-AWS_REGION = "regiao-da-aws"
-PRIVATE_KEY_PATH = "Local da chave privada"
-PUBLIC_KEY = "ssh-rsa /u78hjjrvZu..."
-DB_PASS = "senha-do-banco"
-DB_NAME = "postgres"
-DB_USER = "postgres"
