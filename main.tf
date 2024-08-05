@@ -108,7 +108,7 @@ resource "aws_security_group" "deepesg_sg" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["189.121.200.173/32"]
+    cidr_blocks = ["IP.DA.SUA.MAQUINA/32"]
   }
 
   ingress {

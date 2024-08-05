@@ -6,10 +6,10 @@ Projeto configurado para atender as necessidades do teste proposto. O foco princ
 A aplicação consiste em um servidor frontend e um backend. Ela armazena valores que o usuário insere em uma lista e os exibe na tela. Imagens docker foram buildadas para cada um dos servidores. Elas estão armazenadas em repositórios no DockerHub. Os servidores serão gerenciados via Docker Compose dentro da instancia. 
 
 ## :whale2: Docker Compose
-A aplicação irá ser iniciada via Docker Compose. O container do servidor frontend responde na porta 3000, mas a 8080 da instancia irá ser usada para o acesso do mesmo. Já o container do backend responde na 5500, usando a 80 da instancia  para para o acesso. 
+A aplicação irá ser iniciada via Docker Compose. O container do servidor frontend responde na porta 3000, mas a 8080 da instancia irá ser usada para o acesso do mesmo. Já o container do backend responde na 5500, usando a 80 da instancia para o acesso. 
 
 ## :rocket: Terraform
-O projeto possui 3 arquivos `.tf` para a configuração da infra. O `main.tf` contempla a criação dos seguintes recursos: VPC e seus componentes, um Security Group, um Bucket S3, um RDS PostgreSQL, uma instancia configurada para iniciar a aplicação e um **Application Load Balancer** para o acesso da mesma. No `variables.tf` estão declaradas as variáveis necessárias em alguns recursos. Já o `terraform.tfvars` irá conter os valores das variáveis. 
+O projeto possui 3 arquivos `.tf` para a configuração da infra. O `main.tf` contempla a criação dos seguintes recursos: VPC e seus componentes, um Security Group, um RDS PostgreSQL, uma instancia configurada para iniciar a aplicação e um Application Load Balancer para o acesso da mesma. No `variables.tf` estão declaradas as variáveis necessárias em alguns recursos. Já o `terraform.tfvars` irá conter os valores das variáveis. 
 
 * Recursos Criados
 
