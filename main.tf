@@ -130,7 +130,8 @@ resource "aws_security_group" "deepesg_sg" {
   }
 }
 
-# #Criando DB PostgreSQL e Subnet Group
+
+# Criando DB PostgreSQL e Subnet Group
 
 resource "aws_db_subnet_group" "deep_app_db_subg" {
   name       = "deep-db-subnet-group"
@@ -242,7 +243,7 @@ resource "aws_lb" "deepesg_lb" {
 
 resource "aws_lb_target_group" "deepesg_tg" {
   name     = "deepesg-tg"
-  port     = 8080
+  port     = 80
   protocol = "HTTP"
   vpc_id   = "${aws_vpc.deepesg_main.id}" 
 
@@ -275,7 +276,7 @@ resource "aws_lb_listener" "http_listener" {
 resource "aws_lb_target_group_attachment" "deepesg_tga" {
   target_group_arn = aws_lb_target_group.deepesg_tg.arn
   target_id        = aws_instance.deepesg-app-runner.id
-  port             = 8080
+  port             = 80
 }
 
 output "alb_dns_name" {

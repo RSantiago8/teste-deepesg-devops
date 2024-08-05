@@ -11,26 +11,26 @@ A aplicação irá ser iniciada via Docker Compose. O container do servidor fron
 ## :rocket: Terraform
 O projeto possui 3 arquivos `.tf` para a configuração da infra. O `main.tf` contempla a criação dos seguintes recursos: VPC e seus componentes, um Security Group, um RDS PostgreSQL, uma instancia configurada para iniciar a aplicação e um Application Load Balancer para o acesso da mesma. No `variables.tf` estão declaradas as variáveis necessárias em alguns recursos. Já o `terraform.tfvars` irá conter os valores das variáveis. 
 
-* Recursos Criados
+**Recursos Criados**
 
- **VPC e Subnets**
+ * VPC e Subnets
  
 O recurso `aws_vpc`  irá criar uma VPC com 4 subnets: 2 publicas e 2 privadas. A VPC irá possuir o CIDR `128.0.0.0/16` enquanto que as subnets irão possuir CIDRs `/24`. Os recursos `aws_subnet` são responsáveis por criar as subnets. As publicas estão configuradas para atribuir um IP publico na instancia. Um Internet Gateway(`aws_internet_gateway`), Route Table(`aws_route_table`) e Route Table Associations(`aws_route_table_association`) foram configurados nas subnets publicas para garantir o acesso dos recursos a Internet. Para prevenir o acesso publico aos recursos, o `aws_security_group` irá criar um Security Group configurado para permitir o acesso da maquina local e de requisições provenientes da VPC.
 
- **Load Balancer**
+ * Load Balancer
 
 Para podermos acessar a aplicação, iremos criar um Application Load Balancer com o recurso `aws_lb`. Ele está configurado com o Security Group criado junto a VPC e associado com as subnets publicas. O listener (`aws_lb_listener`) está configurado com o protocolo HTTP na porta 80. Ele irá fazer um forwarding para um Target Group. O recurso `aws_lb_target_group` está usando o protocolo HTTP e apontando para a porta 8080. Essa é a porta configurada no compose que a aplicação responde. Já o `aws_lb_target_group_attachment` está configurado para associar a instancia criada ao Target Group liberando a porta 8080. O parametro `output` irá disponibilizar o DNS do Load Balancer.
 
-**Instancia EC2**
+* Instancia EC2
 
 O recurso `aws_instance` irá provisionar uma instancia para o deploy da aplicação. Ela está configurada com uma subnet publica e o security group criado com a VPC. Para preparar a instancia pro deploy algumas dependências precisam ser instaladas durante a inicialização. Um script(install-deps) foi criado para instalar o **Docker** e o **Docker Compose**. Uma `connection` SSH foi configurada, ela irá usar a chave privada gerada pelo usuário. Um `provisioner` irá transferir esse script para dentro da instancia. Outro `provisioner` é responsável por copiar o **docker-compose.yml**. O `remote-exec` irá usar a conexão SSH criada para mudar a permissão do script, executá-lo e iniciar o deploy da aplicação via **docker-compose**. 
 
-**RDS PostgreSQL**
+* RDS PostgreSQL
 
 Para garantir o armazenamento o armazenamento dos dados, um banco de dados RDS é necessário. O recurso `aws_db_instance` ira prover este banco. Os dados de acesso irão ser configurados através das variáveis contidas no `variables.tf`. O recurso `aws_db_subnet_group` é usado para associar o banco a subnets. No caso as subnets publicas irão ser usadas. 
 
 
-* Variáveis
+**Variáveis**
 
 Os arquivos `variables.tf` e `terraform.tfvars` são usados para armazenar e prover variáveis de ambiente que o `main.tf`precisa para funcionar. Elas tornam algumas configurações mais fáceis, assim como são uma maneira melhor para usar dados sensíveis, como keys no terraform. O `variables.tf` irá declarar as variáveis que iremos usar. Elas são:
    * AWS_ACCESS_KEY - Access Key do usuário criado da AWS;
