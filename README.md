@@ -1,4 +1,4 @@
-# DeepESG Teste Cloud Engineer
+# DeepESG - Teste Cloud Engineer
 
 Projeto configurado para atender as necessidades do teste proposto. O foco principal é a utilização de IaC com Terraform para o provisionamento de uma infraestrutura para o deploy de uma aplicação na AWS. 
 
