@@ -11,7 +11,7 @@ A aplicação irá ser iniciada via Docker Compose. O container do servidor fron
 ## :rocket: Terraform
 O projeto possui 3 arquivos `.tf` para a configuração da infra. O `main.tf` contempla a criação dos seguintes recursos: VPC e seus componentes, um Security Group, um Bucket S3, um RDS PostgreSQL, uma instancia configurada para iniciar a aplicação e um **Application Load Balancer** para o acesso da mesma. No `variables.tf` estão declaradas as variáveis necessárias em alguns recursos. Já o `terraform.tfvars` irá conter os valores das variáveis. 
 
-* :computer: Recursos Criados
+* Recursos Criados
 
  **VPC e Subnets**
  
@@ -23,14 +23,14 @@ Para podermos acessar a aplicação, iremos criar um Application Load Balancer c
 
 **Instancia EC2**
 
-O recurso `aws_instance` irá provisionar uma instancia para o deploy da aplicação. Ela está configurada com uma subnet publica e o security group criado com a VPC. Para preparar a instancia pro deploy algumas dependências precisam ser instaladas durante a inicialização. Um script(install-deps) foi criado para instalar o **Docker** e o **Docker Compose**. Uma `connection` SSH foi configurada, ela irá usar a chave privada gerada pelo usuário. Um `provisioner` foi configurado para transferir esse script para dentro da instancia. Outro `provisioner` é responsável por copiar o **docker-compose.yml**. O `remote-exec` irá usar a conexão SSH criada para mudar a permissão do script, executá-lo e iniciar o deploy da aplicação via **docker-compose**. 
+O recurso `aws_instance` irá provisionar uma instancia para o deploy da aplicação. Ela está configurada com uma subnet publica e o security group criado com a VPC. Para preparar a instancia pro deploy algumas dependências precisam ser instaladas durante a inicialização. Um script(install-deps) foi criado para instalar o **Docker** e o **Docker Compose**. Uma `connection` SSH foi configurada, ela irá usar a chave privada gerada pelo usuário. Um `provisioner` irá transferir esse script para dentro da instancia. Outro `provisioner` é responsável por copiar o **docker-compose.yml**. O `remote-exec` irá usar a conexão SSH criada para mudar a permissão do script, executá-lo e iniciar o deploy da aplicação via **docker-compose**. 
 
 **RDS PostgreSQL**
 
 Para garantir o armazenamento o armazenamento dos dados, um banco de dados RDS é necessário. O recurso `aws_db_instance` ira prover este banco. Os dados de acesso irão ser configurados através das variáveis contidas no `variables.tf`. O recurso `aws_db_subnet_group` é usado para associar o banco a subnets. No caso as subnets publicas irão ser usadas. 
 
 
-* :page_with_curl: Variáveis
+* Variáveis
 
 Os arquivos `variables.tf` e `terraform.tfvars` são usados para armazenar e prover variáveis de ambiente que o `main.tf`precisa para funcionar. Elas tornam algumas configurações mais fáceis, assim como são uma maneira melhor para usar dados sensíveis, como keys no terraform. O `variables.tf` irá declarar as variáveis que iremos usar. Elas são:
    * AWS_ACCESS_KEY - Access Key do usuário criado da AWS;
@@ -100,7 +100,7 @@ terraform apply
 
 7 - Ao final do processo, o DNS do Load Balancer para acessar a aplicação estará disponível:
 ```bash
-alb_dns_name = "deepesg-lb-335311988.sa-east-1.elb.amazonaws.com"
+alb_dns_name = "deepesg-lb-abcde13245.sa-east-1.elb.amazonaws.com"
 ```
 
 8 - Acesse o DNS em um navegador de sua preferencia.
