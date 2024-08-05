@@ -96,7 +96,10 @@ Para aplicar os recursos use:
 ```bash
 terraform apply
 ```
-
+Depois de alguns minutos os recursos estarão criados.
+```bash
+Apply complete! Resources: 18 added, 0 changed, 0 destroyed.
+```
 
 7 - Ao final do processo, o DNS do Load Balancer para acessar a aplicação estará disponível:
 ```bash
