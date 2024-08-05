@@ -1,0 +1,14 @@
+version: '3.3'
+
+services:
+  backend-server:
+    image: rspereira8/backend-server:latest
+    container_name: backend-server
+    ports:
+      - "80:5500"
+
+  frontend-server:
+    image: rspereira8/frontend-server:latest
+    container_name: frontend-server
+    ports:
+      - "8080:3000"
