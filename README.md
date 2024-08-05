@@ -2,16 +2,16 @@
 
 Projeto configurado para atender as necessidades do teste proposto. O foco principal é a utilização de IaC com Terraform para o provisionamento de uma infraestrutura para o deploy de uma aplicação na AWS. 
 
-## Escopo da Aplicação
+## :mag_right: Escopo da Aplicação
 A aplicação consiste em um servidor frontend e um backend. Ela armazena valores que o usuário insere em uma lista e os exibe na tela. Imagens docker foram buildadas para cada um dos servidores. Elas estão armazenadas em repositórios no DockerHub. Os servidores serão gerenciados via Docker Compose dentro da instancia. 
 
-## Docker Compose
+## :whale2: Docker Compose
 A aplicação irá ser iniciada via Docker Compose. O container do servidor frontend responde na porta 3000, mas a 8080 da instancia irá ser usada para o acesso do mesmo. Já o container do backend responde na 5500, usando a 80 da instancia  para para o acesso. 
 
-## Terraform
+## :rocket: Terraform
 O projeto possui 3 arquivos `.tf` para a configuração da infra. O `main.tf` contempla a criação dos seguintes recursos: VPC e seus componentes, um Security Group, um Bucket S3, um RDS PostgreSQL, uma instancia configurada para iniciar a aplicação e um **Application Load Balancer** para o acesso da mesma. No `variables.tf` estão declaradas as variáveis necessárias em alguns recursos. Já o `terraform.tfvars` irá conter os valores das variáveis. 
 
-* Recursos Criados
+* :computer: Recursos Criados
 
  **VPC e Subnets**
  
@@ -30,7 +30,7 @@ O recurso `aws_instance` irá provisionar uma instancia para o deploy da aplica�
 Para garantir o armazenamento o armazenamento dos dados, um banco de dados RDS é necessário. O recurso `aws_db_instance` ira prover este banco. Os dados de acesso irão ser configurados através das variáveis contidas no `variables.tf`. O recurso `aws_db_subnet_group` é usado para associar o banco a subnets. No caso as subnets publicas irão ser usadas. 
 
 
-* Variáveis
+* :page_with_curl: Variáveis
 
 Os arquivos `variables.tf` e `terraform.tfvars` são usados para armazenar e prover variáveis de ambiente que o `main.tf`precisa para funcionar. Elas tornam algumas configurações mais fáceis, assim como são uma maneira melhor para usar dados sensíveis, como keys no terraform. O `variables.tf` irá declarar as variáveis que iremos usar. Elas são:
    * AWS_ACCESS_KEY - Access Key do usuário criado da AWS;
