@@ -106,4 +106,9 @@ alb_dns_name = "deepesg-lb-335311988.sa-east-1.elb.amazonaws.com"
 8 - Acesse o DNS em um navegador de sua preferencia.
 
 
+9 - Para apagar os recursos da infraestrutura, use o comando:
+```bash
+terraform destroy
+```
+
 
