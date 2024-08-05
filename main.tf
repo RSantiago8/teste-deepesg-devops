@@ -130,28 +130,6 @@ resource "aws_security_group" "deepesg_sg" {
   }
 }
 
-#Criando Bucket, componentes e bloqueando acesso publico
-
-resource "aws_s3_bucket" "deepesg_bucket" {
-  bucket = "deepesg-xpto33-bucket"
-}
-
-resource "aws_s3_bucket_public_access_block" "app_storage_public_access_block" {
-  bucket = aws_s3_bucket.deepesg_bucket.id
-
-  block_public_acls = true
-  ignore_public_acls = true
-  block_public_policy = true
-  restrict_public_buckets = true
-}
-
-resource "aws_s3_bucket_versioning" "deepesg_bv" {
-  bucket = aws_s3_bucket.deepesg_bucket.id
-  versioning_configuration {
-    status = "Disabled"
-  }
-}
-
 # #Criando DB PostgreSQL e Subnet Group
 
 resource "aws_db_subnet_group" "deep_app_db_subg" {
