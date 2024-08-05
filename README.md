@@ -23,7 +23,7 @@ Para podermos acessar a aplicação, iremos criar um Application Load Balancer c
 
 **Instancia EC2**
 
-O recurso `aws_instance` irá provisionar uma instancia para o deploy da aplicação. Ela está configurada com uma subnet publica e o security group criado com a VPC. Para preparar a instancia pro deploy algumas dependências precisam ser instaladas durante a inicialização. Um script foi criado para instalar o **Docker** e o **Docker Compose**. Para acessar a instancia uma `connection` foi configurada. Elá irá usar a chave privada gerada pelo usuário. Um `provisioner` foi configurado para transferir esse script para dentro da instancia. Outro `provisioner` é responsável por copiar o **docker-compose.yml**. O `remote-exec` irá mudar a permissão do script, executá-lo e iniciar o deploy da aplicação via **docker-compose**. 
+O recurso `aws_instance` irá provisionar uma instancia para o deploy da aplicação. Ela está configurada com uma subnet publica e o security group criado com a VPC. Para preparar a instancia pro deploy algumas dependências precisam ser instaladas durante a inicialização. Um script(install-deps) foi criado para instalar o **Docker** e o **Docker Compose**. Uma `connection` SSH foi configurada, ela irá usar a chave privada gerada pelo usuário. Um `provisioner` foi configurado para transferir esse script para dentro da instancia. Outro `provisioner` é responsável por copiar o **docker-compose.yml**. O `remote-exec` irá usar a conexão SSH criada para mudar a permissão do script, executá-lo e iniciar o deploy da aplicação via **docker-compose**. 
 
 **RDS PostgreSQL**
 
